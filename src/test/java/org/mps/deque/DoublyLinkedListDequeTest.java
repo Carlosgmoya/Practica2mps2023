@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class DoublyLinkedListDequeTest {
 
     DoublyLinkedListDeque<Integer> list;
-
-
     @Test
     @DisplayName("is instatiated with new DoublyLinkedListDeque<>()")
     void isInstatiatedWithNew() {
