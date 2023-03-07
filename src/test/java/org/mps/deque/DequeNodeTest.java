@@ -3,7 +3,7 @@ package org.mps.deque;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-@DisplayName("A list")
+@DisplayName("A node")
 class DequeNodeTest {
 
     DequeNode<Integer> list;
