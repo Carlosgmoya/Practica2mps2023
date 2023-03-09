@@ -5,10 +5,10 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for class {@link DoublyLinkedListDeque}
+ * Unit tests for class {@link DequeNodeTest}
  *
  *  @author Carlos Garcia Moya
- *  @author David
+ *  @author David Villaseca Pareja
  */
 
 @DisplayName("A node")

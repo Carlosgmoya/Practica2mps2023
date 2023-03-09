@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit tests for class {@link DoublyLinkedListDeque}
  *
  *  @author Carlos Garcia Moya
- *  @author David
+ *  @author David Villaseca Pareja
  */
 @DisplayName("A list")
 class DoublyLinkedListDequeTest {
