@@ -138,13 +138,9 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
             if (this.get(i).equals(value)) {
                 found = true;
                 if(i == 0) {
-                    aux.getNext().setPrevious(null);
-                    this.first = aux.getNext();
-                    size--;
+                    deleteFirst();
                 } else if(i == size - 1) {
-                    aux.getPrevious().setNext(null);
-                    this.last = aux.getPrevious();
-                    size--;
+                    deleteLast();
                 } else {
                     aux.getPrevious().setNext(aux.getNext());
                     aux.getNext().setPrevious(aux.getPrevious());

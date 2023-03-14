@@ -239,6 +239,86 @@ class DoublyLinkedListDequeTest {
                 assertTrue(list.contains(3));
             }
         }
+
+        @Nested
+        @DisplayName("Remove an element from a list")
+        class removeElement {
+            @BeforeEach
+            void setup(){
+                list.append(1);
+                list.append(2);
+                list.append(3);
+            }
+            @Test
+            @DisplayName("remove from an empty list")
+            void removeEmptyList(){
+                list.deleteFirst();
+                list.deleteFirst();
+                list.deleteFirst();
+                assertThrows(DoubleEndedQueueException.class, () -> list.remove(1));
+            }
+
+            @Test
+            @DisplayName("remove a value that isn't in the list")
+            void removeNotInList(){
+                assertThrows(DoubleEndedQueueException.class, () -> list.remove(100));
+            }
+
+            @Test
+            @DisplayName("remove a value from the list that happens to be the first one")
+            void removeFirstItem(){
+                list.remove(1);
+                assertEquals(2, list.first());
+            }
+
+            @Test
+            @DisplayName("remove a value from the list that happens to be the last one")
+            void removeLastItem(){
+                list.remove(3);
+                assertEquals(2, list.last());
+            }
+
+            @Test
+            @DisplayName("remove a value from  list")
+            void removeTest(){
+                list.remove(2);
+                assertEquals(3, list.get(1));
+            }
+
+            @Test
+            @DisplayName("Size decreases when remove a value")
+            void sizeAppend(){
+                list.remove(1);
+                assertEquals(2, list.size());
+            }
+
+        }
+
+        @Nested
+        @DisplayName("Sort list of elements")
+        class sortElements {
+
+            @BeforeEach
+            void setup(){
+                list.append(3);
+                list.append(2);
+                list.append(1);
+            }
+
+            @Test
+            @DisplayName("sort an empty list")
+            void sortEmptyList(){
+                list.deleteFirst();
+                list.deleteFirst();
+                list.deleteFirst();
+            }
+
+            @Test
+            @DisplayName("test")
+            void test(){
+
+            }
+        }
     }
 
 }
