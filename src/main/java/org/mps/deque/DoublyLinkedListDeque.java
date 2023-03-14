@@ -106,10 +106,8 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
             throw new IndexOutOfBoundsException("Esa posicion esta fuera de los limites de la lista");
         }
         DequeNode<T> result = this.first;
-        for (int i = 0; i < index-1; i++) {
-            if ( index == 0){
-                return result.getItem();
-            }
+        for (int i = 0; i < index; i++) {
+
             result = result.getNext();
         }
         T item = result.getItem();
@@ -118,7 +116,6 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public boolean contains(T value) {
-
         DequeNode<T> result = this.first;
         for (int i = 0; i < this.size; i++){
             if (result.getItem() == value) {
