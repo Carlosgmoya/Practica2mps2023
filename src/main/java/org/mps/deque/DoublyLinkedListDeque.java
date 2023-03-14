@@ -1,5 +1,7 @@
 package org.mps.deque;
 
+import java.util.Comparator;
+
 /**
  *  @author Carlos Garcia Moya
  *  @author David Villaseca Pareja
@@ -96,5 +98,44 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
     @Override
     public int size() {
         return this.size;
+    }
+
+    @Override
+    public T get(int index) {
+        if (this.size-1 < index || index < 0) {
+            throw new IndexOutOfBoundsException("Esa posicion esta fuera de los limites de la lista");
+        }
+        DequeNode<T> result = this.first;
+        for (int i = 0; i < index-1; i++) {
+            if ( index == 0){
+                return result.getItem();
+            }
+            result = result.getNext();
+        }
+        T item = result.getItem();
+        return item;
+    }
+
+    @Override
+    public boolean contains(T value) {
+
+        DequeNode<T> result = this.first;
+        for (int i = 0; i < this.size; i++){
+            if (result.getItem() == value) {
+                return true;
+            }
+            result = result.getNext();
+        }
+        return false;
+    }
+
+    @Override
+    public void remove(T value) {
+
+    }
+
+    @Override
+    public void sort(Comparator<? super T> comparator) {
+
     }
 }
