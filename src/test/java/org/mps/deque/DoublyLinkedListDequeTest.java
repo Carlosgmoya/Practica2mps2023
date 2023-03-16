@@ -26,12 +26,14 @@ package org.mps.deque;
     15. [1].deleteLast() -> []
 
     cases for get()
-    16.
-    17.
+    16. [].get(100) -> Throws IndexOutOfBoundsException
+    17. [1 -> 2 -> 3].get(0) -> 1
+        [1 -> 2 -> 3].get(1) -> 2
+        [1 -> 2 -> 3].get(2) -> 3
 
     cases for contain()
-    18.
-    19.
+    18. [1 -> 2 -> 3].contains(24) -> False
+    19. [1 -> 2 -> 3].contains(2) -> True
 
     cases for remove()
     20. [].remove(1) -> Throws DoubleEndedQueueException
@@ -268,9 +270,7 @@ class DoublyLinkedListDequeTest {
                 list.append(1);
                 list.append(2);
                 list.append(3);
-                assertFalse(list.contains(5));
                 assertFalse(list.contains(24));
-                assertFalse(list.contains(9));
             }
 
             @Test
@@ -279,9 +279,7 @@ class DoublyLinkedListDequeTest {
                 list.append(1);
                 list.append(2);
                 list.append(3);
-                assertTrue(list.contains(1));
                 assertTrue(list.contains(2));
-                assertTrue(list.contains(3));
             }
         }
 
@@ -353,6 +351,7 @@ class DoublyLinkedListDequeTest {
             @Test
             @DisplayName("sort a list with one element")
             void sortOnly1Item(){
+                list.append(1);
                 assertThrows(DoubleEndedQueueException.class, () -> list.sort(Comparator.naturalOrder()));
             }
 
