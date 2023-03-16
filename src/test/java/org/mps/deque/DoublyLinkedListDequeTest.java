@@ -1,5 +1,52 @@
 package org.mps.deque;
 
+/*
+    Test cases:
+    When creating a new DoublyLinkedListDequeue
+    1. [].first() -> Throws DoubleEndedQueueException
+    2. [].last() -> Throws DoubleEndedQueueException
+    3. [].size() -> 0
+
+    cases for prepend()
+    4. [].prepend(1) -> [1]
+    5. [].prepend() 3 integers - > [1 -> 2 -> 3]
+    6. [].prepend(1).size -> 1
+
+    cases for append()
+    7. [].apend(1) -> [1]
+    8. [].apend() 3 integers - > [3 -> 2 -> 1]
+    9. [].apend(1).size -> 1
+
+    cases for deleteFirst() and deleteLast()
+    10. [].DeleteFirst() || emptyList.DeleteLast() -> Throws DoubleEndedQueueException
+    11. [1 -> 2 -> 3].deleteFirst().size() -> 2
+    12. [1 -> 2 -> 3].deleteFirst() -> [2 -> 3]
+    13. [1 -> 2 -> 3].deleteLast() -> [1 -> 2]
+    14. [1].deleteFirst() -> []
+    15. [1].deleteLast() -> []
+
+    cases for get()
+    16.
+    17.
+
+    cases for contain()
+    18.
+    19.
+
+    cases for remove()
+    20. [].remove(1) -> Throws DoubleEndedQueueException
+    21. [1 -> 2 -> 3].remove(100) -> Throws DoubleEndedQueueException
+    22. [1 -> 2 -> 3].remove(1).first() -> 2
+    23. [1 -> 2 -> 3].remove(3).last() -> 2
+    24. [1 -> 2 -> 3].remove(2).first() -> [1 -> 3]
+    25. [1 -> 2 -> 3].remove(1).size() -> 2
+
+    cases for sort()
+    26. [].sort(Comparator.naturalOrder()) -> Throws DoubleEndedQueueException
+    27. [1].sort(Comparator.naturalOrder()) -> Throws DoubleEndedQueueException
+    28. [4 -> 3 -> 2 -> 1].sort(Comparator.naturalOrder()) -> [1 -> 2 -> 3 -> 4]
+ */
+
 import org.junit.jupiter.api.*;
 
 import java.util.Comparator;
@@ -41,11 +88,9 @@ class DoublyLinkedListDequeTest {
             assertThrows(DoubleEndedQueueException.class, () -> list.last());
         }
         @Test
-        @DisplayName("is empty")
+        @DisplayName("size 0 when list is empty")
         void isEmpty(){
-            int expectedValue = 0;
-            int actualValue = list.size();
-            assertEquals(expectedValue, actualValue);
+            assertEquals(0, list.size());
         }
 
         @Nested
@@ -56,9 +101,7 @@ class DoublyLinkedListDequeTest {
             void prependEmpty(){
                 list.prepend(1);
 
-                Integer expectedValue = 1;
-                Integer actualValue = list.first();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(1, list.first());
             }
 
             @Test
@@ -68,9 +111,9 @@ class DoublyLinkedListDequeTest {
                 list.prepend(2);
                 list.prepend(1);
 
-                Integer expectedValue = 1;
-                Integer actualValue = list.first();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(1, list.first());
+                assertEquals(2, list.get(1));
+                assertEquals(3, list.last());
             }
 
             @Test
@@ -78,8 +121,7 @@ class DoublyLinkedListDequeTest {
             void sizePrepend(){
                 Integer expectedValue = list.size() + 1;
                 list.append(1);
-                Integer actualValue = list.size();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(expectedValue, list.size());
             }
 
         }
@@ -91,10 +133,7 @@ class DoublyLinkedListDequeTest {
             @DisplayName("Append an element to an empty list")
             void appendEmpty(){
                 list.append(1);
-
-                Integer expectedValue = 1;
-                Integer actualValue = list.last();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(1, list.last());
             }
 
             @Test
@@ -104,9 +143,9 @@ class DoublyLinkedListDequeTest {
                 list.append(2);
                 list.append(1);
 
-                Integer expectedValue = 1;
-                Integer actualValue = list.last();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(1, list.last());
+                assertEquals(2, list.get(1));
+                assertEquals(3, list.first());
             }
 
             @Test
@@ -114,8 +153,7 @@ class DoublyLinkedListDequeTest {
             void sizeAppend(){
                 Integer expectedValue = list.size() + 1;
                 list.append(1);
-                Integer actualValue = list.size();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(expectedValue, list.size());
             }
 
         }
@@ -133,17 +171,27 @@ class DoublyLinkedListDequeTest {
             }
 
             @Test
-            @DisplayName("size decreases whit delete")
-            void sizeControl(){
+            @DisplayName("size decreases whit deleteFirst")
+            void sizeControlFirst(){
                 list.append(1);
                 list.append(2);
                 list.append(3);
 
 
-                Integer expectedValue = 2;
                 list.deleteFirst();
-                Integer actualValue = list.size();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(2, list.size());
+            }
+
+            @Test
+            @DisplayName("size decreases whit deleteLast")
+            void sizeControlLast(){
+                list.append(1);
+                list.append(2);
+                list.append(3);
+
+
+                list.deleteLast();
+                assertEquals(2, list.size());
             }
 
 
@@ -154,11 +202,8 @@ class DoublyLinkedListDequeTest {
                 list.append(2);
                 list.append(3);
 
-
-                Integer expectedValue = 2;
                 list.deleteFirst();
-                Integer actualValue = list.first();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(2, list.first());
             }
 
             @Test
@@ -168,10 +213,8 @@ class DoublyLinkedListDequeTest {
                 list.append(2);
                 list.append(3);
 
-                Integer expectedValue = 2;
                 list.deleteLast();
-                Integer actualValue = list.last();
-                assertEquals(expectedValue, actualValue);
+                assertEquals(2, list.last());
             }
 
             @Test
@@ -180,7 +223,7 @@ class DoublyLinkedListDequeTest {
                 list.append(1);
 
                 list.deleteFirst();
-                assertEquals(list.size(), 0);
+                assertEquals(0, list.size());
             }
 
             @Test
@@ -189,7 +232,7 @@ class DoublyLinkedListDequeTest {
                 list.append(1);
 
                 list.deleteLast();
-                assertEquals(list.size(), 0);
+                assertEquals(0, list.size());
             }
 
         }
@@ -284,6 +327,7 @@ class DoublyLinkedListDequeTest {
             @DisplayName("remove a value from  list")
             void removeTest(){
                 list.remove(2);
+                assertEquals(1, list.get(0));
                 assertEquals(3, list.get(1));
             }
 
