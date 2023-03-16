@@ -165,30 +165,33 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         }
         DequeNode<T> current = first.getNext();
         DequeNode<T> aux;
-        int i = 1;
-        while (i < size){
+        while (current!= null){
             if(comparator.compare(current.getItem(), current.getPrevious().getItem()) < 0) {
                 if(current.getPrevious().isFirstNode()) {
                     aux = current.getPrevious();
                     aux.setNext(current.getNext());
+                    aux.getNext().setPrevious(aux);
                     current.setNext(aux);
                     current.setPrevious(aux.getPrevious());
                     aux.setPrevious(current);
                     first = current;
-                    current = current.getNext();
-                } else {
+                    current = aux.getNext();
+                } else if(current.isLastNode()) {
                     aux = current.getPrevious();
                     aux.setNext(current.getNext());
                     current.setNext(aux);
                     current.setPrevious(aux.getPrevious());
                     aux.setPrevious(current);
-                    current = aux;
+                    last = aux;
+                } else {
+                    aux = current.getPrevious();
+                    aux.setNext(current.getNext());
+                    aux.getNext().setPrevious(aux);
+                    current.setNext(aux);
+                    current.setPrevious(aux.getPrevious());
+                    aux.setPrevious(current);
                 }
             } else {
-                i++;
-                if(current.isLastNode() && (comparator.compare(current.getItem(), last.getItem()) != 0)) {
-                    current = last;
-                }
                 current = current.getNext();
             }
         }

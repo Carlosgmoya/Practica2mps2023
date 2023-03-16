@@ -2,6 +2,8 @@ package org.mps.deque;
 
 import org.junit.jupiter.api.*;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -15,8 +17,8 @@ class DoublyLinkedListDequeTest {
 
     DoublyLinkedListDeque<Integer> list;
     @Test
-    @DisplayName("is instatiated with new DoublyLinkedListDeque<>()")
-    void isInstatiatedWithNew() {
+    @DisplayName("is instantiated with new DoublyLinkedListDeque<>()")
+    void isInstantiatedWithNew() {
         new DoublyLinkedListDeque<Integer>();
     }
 
@@ -298,25 +300,32 @@ class DoublyLinkedListDequeTest {
         @DisplayName("Sort list of elements")
         class sortElements {
 
-            @BeforeEach
-            void setup(){
-                list.append(3);
-                list.append(2);
-                list.append(1);
-            }
-
             @Test
             @DisplayName("sort an empty list")
             void sortEmptyList(){
-                list.deleteFirst();
-                list.deleteFirst();
-                list.deleteFirst();
+                assertThrows(DoubleEndedQueueException.class, () -> list.sort(Comparator.naturalOrder()));
             }
 
             @Test
-            @DisplayName("test")
-            void test(){
+            @DisplayName("sort a list with one element")
+            void sortOnly1Item(){
+                assertThrows(DoubleEndedQueueException.class, () -> list.sort(Comparator.naturalOrder()));
+            }
 
+            @Test
+            @DisplayName("sort a list of integer")
+            void sortList(){
+                list.append(4);
+                list.append(3);
+                list.append(2);
+                list.append(1);
+
+                list.sort(Comparator.naturalOrder());
+
+                assertEquals(1, list.first());
+                assertEquals(2, list.get(1));
+                assertEquals(3, list.get(2));
+                assertEquals(4, list.last());
             }
         }
     }
